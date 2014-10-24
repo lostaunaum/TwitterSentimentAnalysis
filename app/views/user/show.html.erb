@@ -1,0 +1,7 @@
+
+<h1>Hello! <%= @user.name %></h1>
+
+<h2><%= link_to "Click here for the personality test!", "/user/#{@user.id}/tweets", :method => :create %></h2>
+<h3>Nickname: <%= @user.nickname %></h3>
+<h3>Description: <%= @user.description %></h3>
+<h3>Location: <%= @user.location %></h3>

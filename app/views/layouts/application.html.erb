@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+	<head>
+	  <title>TwitterSentimentAnalysis</title>
+	  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+	  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	  <%= csrf_meta_tags %>
+	</head>
+	<h2> <%= flash[:message] %></h2>
+
+
+	<ul class="nav nav-pills">
+	<% if @current_user %>
+		<li><%= link_to 'Sign Out', signout_path, :method => :post %></li>
+		<li><%= link_to 'Profile', user_path(@current_user.id), :method => :get %></li>
+		<li><%= link_to 'Statistics', "/user/#{@current_user.id}/tweets/#{@current_user.id}", :method => :get %></li>
+	<% else %>
+		<li><%= link_to 'Home', root_path, :method => :get %></li>
+	  	<%= link_to "/auth/twitter" do %> 
+	  	<% image_tag("http://www.depositthemes.com/app/themes/default/assets/img/twitter_login_button.png")%>
+	  	<% end %>
+	<% end %>
+	</ul>
+</body>
+
+<div class="container">
+	<div id="sidebar"></div>
+	<div id="content"><%= yield %></div>
+</div>
+	
+
+</html>
+
+<style type="text/css">
+.container { position:relative; padding:0 0 0 55px; }
+#sidebar {
+    position:absolute;
+    top:0; bottom:0; left:0;
+    width:50px;
+    background:white;
+}
+
+#content { 
+	width: 90%; 
+	height:50px;
+    margin:5px 0 5px 0;
+}
+.logos {
+	width: 500px;
+	height: 130px;
+}
+.logos1 {
+	width: 500px;
+	height: 190px;
+}
+blockquote.twitter-tweet {
+  display: inline-block;
+  padding: 16px;
+  margin: 10px 0;
+  max-width: 700px;
+  border: #ddd 1px solid;
+  border-top-color: #eee;
+  border-bottom-color: #bbb;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  font: bold 14px/18px Helvetica, Arial, sans-serif;
+  color: #000;
+}
+ 
+blockquote.twitter-tweet p {
+  font: normal 18px/24px Georgia, "Times New Roman", Palatino, serif;
+  margin: 0 5px 10px 0;
+}
+ 
+blockquote.twitter-tweet a[href^="https://twitter.com"] {
+  font-weight: normal;
+  color: #666;
+  font-size: 12px;
+}
+</style>
