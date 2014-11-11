@@ -103,7 +103,7 @@
     <% @graphBarSide.legend_margin = 25 %>
     <% @graphBarSide.theme = {:colors => %w(black grey), :marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>	
     <% @graphBarSide.labels = {0 => 'Positive', 0.1 => 'Negative'} %>
-    <% @graphBarSide.data "Total tweet Count", total_count%> 
+    <% @graphBarSide.data "Total tweet Count #{total_count}", total_count%> 
     <% @graphBarSide.data "Tweets marked as Positive", @positive[:count]%> 
     <% @graphBarSide.data "Tweets marked as Negative", @negative[:count]%>
     <% @graphBarSide.data "Tweets marked as Neutral", @neutral[:count]%>
