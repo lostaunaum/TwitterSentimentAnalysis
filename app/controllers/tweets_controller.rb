@@ -30,6 +30,7 @@ class TweetsController < ApplicationController
         user_timeline(user, options)
       end
     end
+
     num_attempts = 0
     begin
       num_attempts += 1
@@ -86,6 +87,7 @@ class TweetsController < ApplicationController
     @graphBar = Gruff::Bar.new(850)
     @graphLine = Gruff::Line.new(850)
     @graphBarSide = Gruff::SideBar.new(850)
+
   end
 
 

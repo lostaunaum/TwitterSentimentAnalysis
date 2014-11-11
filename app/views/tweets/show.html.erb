@@ -58,7 +58,6 @@
 <% total_count = scores_array.size.to_i%>
 
 <!-- MATH LOGIC ENDS HERE -->
-
 <!-- BUILDING THE GRAPHS DOWN BELOW -->
 
 <!-- PIE CHART -->
@@ -68,7 +67,12 @@
     <% @graph.data 'Negative Count', @negative[:count] %>
     <% @graph.data 'Neutral Count', @neutral[:count] %>
     <% @graph.marker_count = 1 %>
-    <% @graph.write("app/assets/images/firstChart" + @user.id.to_s + ".png") %>
+    <% graphOut = "public/assets/firstChart-" + @user.id.to_s + ".png"%>
+    <% @graph.write(graphOut) %>
+    <% @graphBarSide.write(graphOut) %>
+    <% image_path2 = File.read(graphOut) %>
+    <% key = File.basename(image_path2) %>
+	<% s3.buckets["bucket"].objects[key].write(:file => image_path2) %>
 <!-- GRAPHBAR -->
     <% @graphBar.title = "Average Positive Score vs Negative Score" %>
     <% @graphBar.legend_margin = 25 %>
@@ -77,7 +81,13 @@
     <% @graphBar.data "Overall Positive: #{positiveAverage}%", positiveAverage%> 
     <% @graphBar.data "Overall Negative: #{negativeAverage}%", negativeAverage%>
     <% @graphBar.minimum_value = 0 %>
-    <% @graphBar.write("public/assets/secondChart" + @user.id.to_s + ".png") %>
+	<% graphOut = "public/assets/secondChart" + @user.id.to_s + ".png"%>
+    <% @graphBar.write(graphOut) %>
+    <% @graphBarSide.write(graphOut) %>
+    <% image_path2 = File.read(graphOut) %>
+    <% key = File.basename(image_path2) %>
+	<% s3.buckets["bucket"].objects[key].write(:file => image_path2) %>
+
 <!-- SIDE BAR GRAPH -->
 	<% @graphBarSide.title = "Tweets Overview" %>
     <% @graphBarSide.legend_margin = 25 %>
@@ -88,13 +98,24 @@
     <% @graphBarSide.data "Tweets marked as Negative", @negative[:count]%>
     <% @graphBarSide.data "Tweets marked as Neutral", @neutral[:count]%>
     <% @graphBarSide.minimum_value = 0 %>
-    <% @graphBarSide.write("public/assets/side_gaph_chart-" + @user.id.to_s + ".png") %>
+    <% graphOut = "public/assets/side_gaph_chart-" + @user.id.to_s + ".png" %>
+    <% @graphBarSide.write(graphOut) %>
+    <% image_path2 = File.read(graphOut) %>
+    <% key = File.basename(image_path2) %>
+	<% s3.buckets["bucket"].objects[key].write(:file => image_path2) %>
+
+
 <!-- LINE GRAPH -->
 	<% @graphLine.title = "History of Tweets" %>
     <% @graphLine.theme = {:colors => %w(black grey), :marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>
     <% @graphLine.labels = {0 => 'First Tweet', 105 => 'Last Tweet'} %>
     <% @graphLine.data(:scores, scores_array) %>
     <% @graphLine.write("app/assets/images/line_transparent" + @user.id.to_s + ".png") %>
+    <% image_path3 = File.read("app/assets/images/line_transparent" + @user.id.to_s + ".png") %>
+    <% key = File.basename(image_path3) %>
+	<% s3.buckets["bucket"].objects[key].write(:file => image_path3) %>
+
+<!-- END OF GRAPHS -->
 
 <div class="showPage">
 	<h1>You are a <%= @result %> tweeter!!</h1>

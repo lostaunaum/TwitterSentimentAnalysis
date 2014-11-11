@@ -1,6 +1,10 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 
+gem 'paperclip'
+
+gem 'aws-sdk'
+
 gem 'hirb'
 
 gem 'gruff'

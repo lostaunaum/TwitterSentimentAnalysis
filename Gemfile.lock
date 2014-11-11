@@ -32,6 +32,11 @@ GEM
       excon (~> 0.28.x)
       faraday (~> 0.8.x)
     arel (5.0.1.20140414130214)
+    aws-sdk (1.58.0)
+      aws-sdk-v1 (= 1.58.0)
+    aws-sdk-v1 (1.58.0)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
     better_errors (2.0.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -40,6 +45,10 @@ GEM
       debug_inspector (>= 0.0.1)
     buftok (0.2.0)
     builder (3.2.2)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.4)
+      climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -87,10 +96,13 @@ GEM
       thread_safe (~> 0.3, >= 0.3.1)
     method_source (0.8.2)
     mime-types (2.4.2)
+    mini_portile (0.6.1)
     minitest (5.4.2)
     multi_json (1.10.1)
     multipart-post (2.0.0)
     naught (1.0.0)
+    nokogiri (1.6.4.1)
+      mini_portile (~> 0.6.0)
     oauth (0.4.7)
     omniauth (1.2.2)
       hashie (>= 1.2, < 4)
@@ -101,6 +113,11 @@ GEM
     omniauth-twitter (1.1.0)
       multi_json (~> 1.3)
       omniauth-oauth (~> 1.0)
+    paperclip (4.2.0)
+      activemodel (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.5.3)
+      mime-types
     pg (0.17.1)
     pry (0.10.1)
       coderay (~> 1.1.0)
@@ -200,6 +217,7 @@ PLATFORMS
 
 DEPENDENCIES
   alchemy-api-rb
+  aws-sdk
   better_errors
   binding_of_caller
   coffee-rails (~> 4.0.0)
@@ -209,6 +227,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   omniauth-twitter
+  paperclip
   pg
   pry-debugger
   rails (= 4.1.6)
