@@ -221,6 +221,6 @@ $.fn.jooSlider = function(options) {
 $(document).ready(function(){
         $("#slider").jooSlider({
             auto:true,
-            speed:4000
+            speed:7000
         });
     });
