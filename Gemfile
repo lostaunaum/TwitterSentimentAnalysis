@@ -8,6 +8,8 @@ gem 'alchemy-api-rb', :require => 'alchemy_api'
 
 gem 'pry-debugger'
 
+gem 'figaro'
+
 gem 'rspec-rails'
 #Omniauth for twitter gem
 gem 'omniauth-twitter'

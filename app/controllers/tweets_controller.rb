@@ -5,8 +5,8 @@ class TweetsController < ApplicationController
     @authorization = Authorization.find_by(:user_id => params[:user_id])
     
     @client = Twitter::REST::Client.new do |config|
-      config.consumer_key        = "kMTcEE1rZrouv1zh6car30nw8"
-      config.consumer_secret     = "zpTobHFDGK97jT9WKH7F4Y4mcj7eN3Vp5GoeTHWo8tnhBI5H1b"
+      config.consumer_key        = ENV["twitter_app_id"] 
+      config.consumer_secret     = ENV["twitter_app_secret"]
       config.access_token        = @authorization[:token]
       config.access_token_secret = @authorization[:secret]
     end
@@ -17,8 +17,8 @@ class TweetsController < ApplicationController
     @authorization = Authorization.find_by(:user_id => params[:user_id])
     
     @client = Twitter::REST::Client.new do |config|
-      config.consumer_key        = "kMTcEE1rZrouv1zh6car30nw8"
-      config.consumer_secret     = "zpTobHFDGK97jT9WKH7F4Y4mcj7eN3Vp5GoeTHWo8tnhBI5H1b"
+      config.consumer_key        = ENV["twitter_app_id"] 
+      config.consumer_secret     = ENV["twitter_app_secret"]
       config.access_token        = @authorization[:token]
       config.access_token_secret = @authorization[:secret]
     end
@@ -30,8 +30,21 @@ class TweetsController < ApplicationController
         user_timeline(user, options)
       end
     end
+    num_attempts = 0
+    begin
+      num_attempts += 1
+      @tweets = @client.get_all_tweets(@client.user)
+    rescue 
+      @tweets = Twitter::Error::TooManyRequests
+      if num_attempts % 3 == 0
+        sleep(1.0/24.0) #one 24th of a second
+        retry
+      else
+        retry
+      end
+    end
 
-    @tweets = @client.get_all_tweets(@client.user)
+    tweet_counter = 0
     @tweets.each do |tweet|
       @newtweet = Tweet.find_by(:twitterId => tweet.id)
       if @newtweet.nil?
@@ -53,6 +66,10 @@ class TweetsController < ApplicationController
           :twitterId => tweet.id
         )
         @newtweet.save
+        tweet_counter += 1
+        if tweet_counter == 20
+          break
+        end
       end
     end
     redirect_to "/user/#{@user.id}/tweets/#{@user.id}"
@@ -63,8 +80,8 @@ class TweetsController < ApplicationController
     @authorization = Authorization.find_by(:user_id => params[:user_id])
     
     @client = Twitter::REST::Client.new do |config|
-      config.consumer_key        = "kMTcEE1rZrouv1zh6car30nw8"
-      config.consumer_secret     = "zpTobHFDGK97jT9WKH7F4Y4mcj7eN3Vp5GoeTHWo8tnhBI5H1b"
+      config.consumer_key        = ENV["twitter_app_id"] 
+      config.consumer_secret     = ENV["twitter_app_secret"]
       config.access_token        = @authorization[:token]
       config.access_token_secret = @authorization[:secret]
     end
@@ -73,6 +90,7 @@ class TweetsController < ApplicationController
     @graph = Gruff::Pie.new
     @graphBar = Gruff::Bar.new(850)
     @graphLine = Gruff::Line.new(850)
+    @graphBarSide = Gruff::SideBar.new(850)
     # render "show", :layout => "application"
   end
 

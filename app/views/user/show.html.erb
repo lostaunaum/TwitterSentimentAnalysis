@@ -1,7 +1,12 @@
-
-<h1>Hello! <%= @user.name %></h1>
-
-<h2><%= link_to "Click here for the personality test!", "/user/#{@user.id}/tweets", :method => :create %></h2>
-<h3>Nickname: <%= @user.nickname %></h3>
-<h3>Description: <%= @user.description %></h3>
-<h3>Location: <%= @user.location %></h3>
+<div class="userInfo">
+	<h1>Hello! <%= @user.name %></h1>
+	<h2><%= link_to "Click here for the personality test!", "/user/#{@user.id}/tweets", :method => :create, class: 'personality-test' %></h2>
+	<h3>Nickname: <%= @user.nickname %></h3>
+	<h3>Description: <%= @user.description %></h3>
+	<h3>Location: <%= @user.location %></h3>
+</div>
+<script type="text/javascript">
+	$('.personality-test').on('click', function() {
+		$('.loading-overlay').show();
+  	});
+</script>

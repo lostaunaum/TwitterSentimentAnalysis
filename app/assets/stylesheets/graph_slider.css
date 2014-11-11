@@ -1,0 +1,63 @@
+    #slider{
+        margin:0 auto;
+        position:relative;
+        overflow:hidden;
+        width:800px;
+        height:600px;
+    }
+    #slider img{
+      width:auto;
+      height:600px;
+    }
+    .img-wrap{
+        position:absolute;
+        text-align:center;
+        width:100%;
+    }
+    .img-wrap p{
+        display: none;
+        /*COMMENTED THIS OUT SO THE CAPTION WOULD NOT APPEAR*/
+        /*position:absolute;*/
+        top:5%;
+        right:0;
+        font-family: "Londrina Solid";
+        font-size: 50px;
+        padding:10px;
+    }
+    #prev, #next{
+        display: block;
+        position:absolute;
+        width:54px;
+        height:54px;
+        z-index: 9999;
+    }
+    #prev{
+        top:45%;
+        left:5%;
+        background: url('http://i1303.photobucket.com/albums/ag147/GeoWebDev/icons/left_zps9f011452.png') center center;
+    }
+    #next{
+        top:45%;
+        right:5%;
+        background: url('http://i1303.photobucket.com/albums/ag147/GeoWebDev/icons/right_zpsafada5be.png') center center;
+    }
+    .navig{
+        display: table;
+        width:100%;
+    }
+    .navig a{
+        margin-top: 20px;
+        text-transform: uppercase;
+        font-size: 20px;
+        display: table-cell;
+        text-align: center;
+        text-decoration: none;
+        color:#222;
+    }
+    .navig a.current{
+        background-color:#222;
+        color:#fff;
+    }
+
+
+                                

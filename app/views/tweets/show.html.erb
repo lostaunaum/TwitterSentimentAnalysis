@@ -1,11 +1,7 @@
-
-<h1>These Are Your Stats! <%= @user.name %></h1>
-
-
+<!-- MATH LOGIC IN ORDER TO GET AVERAGES COUNTS ETC -->
 
 <% @tweets = Tweet.where(:user_id => params[:id]).all %>
 
-<ol>	
 <% @negative = {:score => 0, :count => 0} %>
 <% @neutral = {:score => 0, :count => 0} %>
 <% @positive = {:score => 0, :count => 0} %>
@@ -42,76 +38,77 @@
 	<% end %>
 <% end %>
 
-<% if @positive[:count] > @negative[:count] %>
+<% if @positive[:count] > @negative[:count] && @positive[:count] > @neutral[:count] %>
 	<% @result = "Positive" %>
-	<% else %>
+<% elsif @negative[:count] > @positive[:count] && @negative[:count] > @neutral[:count] %>
 	<% @result = "Negative" %>
+<% else %>
+	<% @result = "Neutral" %>
 <% end %>
-<h1>You are a <%= @result %> person!</h1>
-<% @user[:result] = @result %> 
-<% @user.save %> 
 
+<% positiveAverage = number_with_precision((@positive[:score]/@positive[:count])*100, :precision => 2).to_i%>
+<% negativeAverage = -number_with_precision((@negative[:score]/@negative[:count])*100, :precision => 2).to_i%>
+<% total_count = @positive[:count] + @negative[:count] + @neutral[:count]%>
 
-<!-- Graph Stuff down below -->
+<!-- MATH LOGIC ENDS HERE -->
 
-<h2>Total Count of Tweets: <%= @positive[:count] + @negative[:count] + @neutral[:count]%></h2>
+<div class="showPage">
+	<h1>You are a <%= @result %> tweeter!!</h1>
+	<% @user[:result] = @result %> 
+	<% @user.save %> 
 
-<div>This chart shows the percentage of your tweets labeled as either neutral, negative or positive</div>
-<br>
+	<div id="slider">
+		<%= image_tag "firstChart.png", alt: "alt", title: "Rated Tweets" %>
+		<%= image_tag "secondChart.png", alt: "alt", title: "Average Scores" %>
+		<%= image_tag "side_gaph_chart.png", alt: "alt", title: "Tweets Overview" %>
+		<%= image_tag "line_transparent.png", alt: "alt", title: "History of Tweets" %>
+	</div>   
 
-    <% @graph.title = "Tweet Rating" %>
+		<h2>These are the tweets evaluated with the top positive and negative scores</h2>
+	<div class="tweetBlocks">
+		<h2>Highest Positve Score: <%= number_with_precision(@max_score_positive[:max]*100, :precision => 2) + "%" %></h2>
+		<blockquote class="twitter-tweet"><p><%= @max_score_positive[:posTweetText]%></p><a href="https://twitter.com/<%= @user.nickname %>"></a>-<%= @user.name %> (@<%= @user.nickname %>)</blockquote>
+		<h2>Lowest Negative Score: <%= number_with_precision(@max_score_negative[:max]*100, :precision => 2) + "%" %> </h2>
+		<blockquote class="twitter-tweet"><p><%= @max_score_negative[:negTweetText]%></p><a href="https://twitter.com/<%= @user.nickname %>"></a>-<%= @user.name %> (@<%= @user.nickname %>)</blockquote>	
+	</div>
+</div>
+
+<div class="scoreShare">
+	<h2><%= link_to 'Share your score on Twitter!', user_tweets_path, :method => :get %></h2>
+</div>
+
+<!-- BUILDING THE GRAPHS DOWN BELOW -->
+
+<!-- PIE CHART -->
+    <% @graph.title = "Rated Tweets" %>
     <% @graph.data 'Postive Count', @positive[:count] %> 
     <% @graph.data 'Negative Count', @negative[:count] %>
     <% @graph.data 'Neutral Count', @neutral[:count] %>
     <% @graph.marker_count = 1 %>
     <% @graph.write("app/assets/images/firstChart.png") %>
-
-<%= image_tag("firstChart.png", :alt => "Image Missing") %>
-<br>
-<br>
-<% positiveAverage = number_with_precision((@positive[:score]/@positive[:count])*100, :precision => 2).to_i%>
-<% negativeAverage = -number_with_precision((@negative[:score]/@negative[:count])*100, :precision => 2).to_i%>
-	<h2>You have <%= @positive[:count] %> tweets marked as positive </h2>
-	<h3>Overall Positivity Score <%= positiveAverage%>%</h3>
-	<br>
-	<h2> You have <%= @negative[:count] %> tweets marked as negative </h2>
-	<h3>Overall Negativity Score <%= negativeAverage%>%</h3>
-	<br>
-<h2><div>This chart shows your average score </div></h2>
+<!-- GRAPHBAR -->
     <% @graphBar.title = "Average Positive Score vs Negative Score" %>
     <% @graphBar.legend_margin = 25 %>
     <% @graphBar.labels = {0 => 'Positive', 1 => 'Negative'} %>
-    <% @graphBar.data 'Overall Positive', positiveAverage%> 
-    <% @graphBar.data 'Overall Negative', negativeAverage%>
+    <% @graphBar.data "Overall Positive: #{positiveAverage}%", positiveAverage%> 
+    <% @graphBar.data "Overall Negative: #{negativeAverage}%", negativeAverage%>
     <% @graphBar.minimum_value = 0 %>
     <% @graphBar.write("app/assets/images/secondChart.png") %>
-
-<%= image_tag("secondChart.png", :alt => "Image Missing") %>
-<br>
-<div><h2>These are the tweets evaluated with the top positive and negative scores</h2></div>
-
-<h2><%= number_with_precision(@max_score_positive[:max]*100, :precision => 2) + "%" %></h2>
-<blockquote class="twitter-tweet"><p><%= @max_score_positive[:posTweetText]%></p><a href="https://twitter.com/<%= @user.nickname %>"></a>-<%= @user.name %> (@<%= @user.nickname %>)</blockquote>
-
-<br>
-<h2><%= number_with_precision(@max_score_negative[:max]*100, :precision => 2) + "%" %> </h2>
-<blockquote class="twitter-tweet"><p><%= @max_score_negative[:negTweetText]%></p><a href="https://twitter.com/<%= @user.nickname %>"></a>-<%= @user.name %> (@<%= @user.nickname %>)</blockquote>
-
-
-
-
-	<% @graphLine.title = "Twitter Account History" %>
+<!-- SIDE BAR GRAPH -->
+	<% @graphBarSide.title = "Tweets Overview" %>
+    <% @graphBarSide.legend_margin = 25 %>
+    <% @graphBarSide.labels = {0 => 'Positive', 0.1 => 'Negative'} %>
+    <% @graphBarSide.data "Total tweet Count #{total_count}", total_count%> 
+    <% @graphBarSide.data "Tweets marked as Positive", @positive[:count]%> 
+    <% @graphBarSide.data "Tweets marked as Negative", @negative[:count]%>
+    <% @graphBarSide.data "Tweets marked as Neutral", @neutral[:count]%>
+    <% @graphBarSide.minimum_value = 0 %>
+    <% @graphBarSide.write("app/assets/images/side_gaph_chart.png") %>
+<!-- LINE GRAPH -->
+	<% @graphLine.title = "History of Tweets" %>
     <% @graphLine.theme = {:colors => %w(black grey), :marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>
-
     <% @graphLine.labels = {0 => 'First Tweet', 105 => 'Last Tweet'} %>
     <% @graphLine.data(:scores, scores_array) %>
     <% @graphLine.write('app/assets/images/line_transparent.png') %>
-
-<%= image_tag("line_transparent.png", :alt => "Image Missing") %>
-<h1>Would you like to share your results on twitter?  </h1>
-<h2><%= link_to 'Share score!', user_tweets_path, :method => :get %></h2>
-
-
-<br>
-
+ 
 
