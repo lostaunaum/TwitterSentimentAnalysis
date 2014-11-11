@@ -1,4 +1,15 @@
-<h1>Score Shared!!</h1>
 <% @user = User.find_by(:id => params[:user_id]) %>
 
-<% @client.update("I am a #{@user[:result]} tweeter according to Marco's twitter sentiment analysis app!! Check what kind of tweeter you are! @lostaunaum") %>
+<% @client.update("I am a #{@user[:result]} tweeter according to Marco's twitter sentiment analysis app!! Check what kind of tweeter you are! @lostaunaum http://radiant-river-9795.herokuapp.com") %>
+
+<blockquote class="twitter-tweet"><p>I am a #{@user[:result]} tweeter according to Marco's twitter sentiment analysis app!! Check what kind of tweeter you are! @lostaunaum http://radiant-river-9795.herokuapp.com</p><a href="https://twitter.com/<%= @user.nickname %>"></a>-<%= @user.name %> (@<%= @user.nickname %>)</blockquote>
+
+<div class="loginPage">
+	<div class="loginHeader">
+		<span class="loginTitle">Score Shared!!</span></br>
+		<span class="loginSignature">Thank you for your time! </span>
+	</div>
+	<div class="AlchemyLogo">
+		<blockquote class="twitter-tweet"><p>I am a #{@user[:result]} tweeter according to Marco's twitter sentiment analysis app!! Check what kind of tweeter you are! @lostaunaum http://radiant-river-9795.herokuapp.com</p><a href="https://twitter.com/<%= @user.nickname %>"></a>-<%= @user.name %> (@<%= @user.nickname %>)</blockquote>
+	</div>
+</div>
