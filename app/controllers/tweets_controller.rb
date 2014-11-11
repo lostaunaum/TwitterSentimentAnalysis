@@ -46,7 +46,7 @@ class TweetsController < ApplicationController
 
     tweet_counter = 0
     @tweets.each do |tweet|
-      @newtweet = Tweet.find_by(:twitterId => tweet.id)
+      @newtweet = Tweet.find_by(:twitterId => tweet.id.to_s)
       if @newtweet.nil?
       begin
         sentiment = AlchemyAPI.search(:sentiment_analysis, text: tweet.text)
