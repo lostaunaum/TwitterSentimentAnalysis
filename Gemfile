@@ -6,8 +6,6 @@ gem 'gruff'
 
 gem 'alchemy-api-rb', :require => 'alchemy_api'
 
-gem 'pry-debugger'
-
 gem 'figaro'
 
 gem 'rspec-rails'
@@ -42,6 +40,7 @@ group :development do
   gem 'spring'
   gem "better_errors"
   gem "binding_of_caller"
+  gem 'pry-debugger'
 end 
 
 # Use ActiveModel has_secure_password
