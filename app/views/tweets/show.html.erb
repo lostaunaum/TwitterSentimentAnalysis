@@ -59,16 +59,53 @@
 
 <!-- MATH LOGIC ENDS HERE -->
 
+<!-- BUILDING THE GRAPHS DOWN BELOW -->
+
+<!-- PIE CHART -->
+    <% @graph.title = "Rated Tweets" %>
+    <% @graph.theme = {:marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>
+    <% @graph.data 'Postive Count', @positive[:count] %> 
+    <% @graph.data 'Negative Count', @negative[:count] %>
+    <% @graph.data 'Neutral Count', @neutral[:count] %>
+    <% @graph.marker_count = 1 %>
+    <% @graph.write("app/assets/images/firstChart" + @user.id.to_s + ".png") %>
+<!-- GRAPHBAR -->
+    <% @graphBar.title = "Average Positive Score vs Negative Score" %>
+    <% @graphBar.legend_margin = 25 %>
+    <% @graphBar.theme = {:marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>
+    <% @graphBar.labels = {0 => 'Positive', 1 => 'Negative'} %>
+    <% @graphBar.data "Overall Positive: #{positiveAverage}%", positiveAverage%> 
+    <% @graphBar.data "Overall Negative: #{negativeAverage}%", negativeAverage%>
+    <% @graphBar.minimum_value = 0 %>
+    <% @graphBar.write("public/assets/secondChart" + @user.id.to_s + ".png") %>
+<!-- SIDE BAR GRAPH -->
+	<% @graphBarSide.title = "Tweets Overview" %>
+    <% @graphBarSide.legend_margin = 25 %>
+    <% @graphBarSide.theme = {:marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>	
+    <% @graphBarSide.labels = {0 => 'Positive', 0.1 => 'Negative'} %>
+    <% @graphBarSide.data "Total tweet Count #{total_count}", total_count%> 
+    <% @graphBarSide.data "Tweets marked as Positive", @positive[:count]%> 
+    <% @graphBarSide.data "Tweets marked as Negative", @negative[:count]%>
+    <% @graphBarSide.data "Tweets marked as Neutral", @neutral[:count]%>
+    <% @graphBarSide.minimum_value = 0 %>
+    <% @graphBarSide.write("public/assets/side_gaph_chart-" + @user.id.to_s + ".png") %>
+<!-- LINE GRAPH -->
+	<% @graphLine.title = "History of Tweets" %>
+    <% @graphLine.theme = {:colors => %w(black grey), :marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>
+    <% @graphLine.labels = {0 => 'First Tweet', 105 => 'Last Tweet'} %>
+    <% @graphLine.data(:scores, scores_array) %>
+    <% @graphLine.write("app/assets/images/line_transparent" + @user.id.to_s + ".png") %>
+
 <div class="showPage">
 	<h1>You are a <%= @result %> tweeter!!</h1>
 	<% @user[:result] = @result %> 
 	<% @user.save %> 
 
 	<div id="slider">
-		<%= image_tag "firstChart.png", alt: "alt", title: "Rated Tweets" %>
-		<%= image_tag "secondChart.png", alt: "alt", title: "Average Scores" %>
-		<%= image_tag "side_gaph_chart.png", alt: "alt", title: "Tweets Overview" %>
-		<%= image_tag "line_transparent.png", alt: "alt", title: "History of Tweets" %>
+		<%= image_tag "firstChart-" + @user.id.to_s + ".png", alt: "alt", title: "Rated Tweets" %>
+		<%= image_tag "secondChart-" + @user.id.to_s + ".png", alt: "alt", title: "Average Scores" %>
+		<%= image_tag "side_gaph_chart-" + @user.id.to_s + ".png", alt: "alt", title: "Tweets Overview" %>
+		<%= image_tag "line_transparent-" + @user.id.to_s + ".png", alt: "alt", title: "History of Tweets" %>
 	</div>   
 
 		<h2>These are the tweets evaluated with the top positive and negative scores</h2>
@@ -84,41 +121,5 @@
 	<h2><%= link_to 'Share your score on Twitter!', user_tweets_path, :method => :get %></h2>
 </div>
 
-<!-- BUILDING THE GRAPHS DOWN BELOW -->
-
-<!-- PIE CHART -->
-    <% @graph.title = "Rated Tweets" %>
-    <% @graph.theme = {:marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>
-    <% @graph.data 'Postive Count', @positive[:count] %> 
-    <% @graph.data 'Negative Count', @negative[:count] %>
-    <% @graph.data 'Neutral Count', @neutral[:count] %>
-    <% @graph.marker_count = 1 %>
-    <% @graph.write("app/assets/images/firstChart.png") %>
-<!-- GRAPHBAR -->
-    <% @graphBar.title = "Average Positive Score vs Negative Score" %>
-    <% @graphBar.legend_margin = 25 %>
-    <% @graphBar.theme = {:marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>
-    <% @graphBar.labels = {0 => 'Positive', 1 => 'Negative'} %>
-    <% @graphBar.data "Overall Positive: #{positiveAverage}%", positiveAverage%> 
-    <% @graphBar.data "Overall Negative: #{negativeAverage}%", negativeAverage%>
-    <% @graphBar.minimum_value = 0 %>
-    <% @graphBar.write("app/assets/images/secondChart.png") %>
-<!-- SIDE BAR GRAPH -->
-	<% @graphBarSide.title = "Tweets Overview" %>
-    <% @graphBarSide.legend_margin = 25 %>
-    <% @graphBarSide.theme = {:marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>	
-    <% @graphBarSide.labels = {0 => 'Positive', 0.1 => 'Negative'} %>
-    <% @graphBarSide.data "Total tweet Count #{total_count}", total_count%> 
-    <% @graphBarSide.data "Tweets marked as Positive", @positive[:count]%> 
-    <% @graphBarSide.data "Tweets marked as Negative", @negative[:count]%>
-    <% @graphBarSide.data "Tweets marked as Neutral", @neutral[:count]%>
-    <% @graphBarSide.minimum_value = 0 %>
-    <% @graphBarSide.write("app/assets/images/side_gaph_chart.png") %>
-<!-- LINE GRAPH -->
-	<% @graphLine.title = "History of Tweets" %>
-    <% @graphLine.theme = {:colors => %w(black grey), :marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>
-    <% @graphLine.labels = {0 => 'First Tweet', 105 => 'Last Tweet'} %>
-    <% @graphLine.data(:scores, scores_array) %>
-    <% @graphLine.write('app/assets/images/line_transparent.png') %>
  
 
