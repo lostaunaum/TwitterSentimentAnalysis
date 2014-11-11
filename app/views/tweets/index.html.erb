@@ -1,6 +1,6 @@
 <% @user = User.find_by(:id => params[:user_id]) %>
 
-<% @client.update("I am a #{@user[:result]} tweeter according to Marco's twitter sentiment analysis app!! Check what kind of tweeter you are! @lostaunaum http://radiant-river-9795.herokuapp.com") %>
+<% @client.update("I am a #{@user[:result]} tweeter according to the iTweet-Sense app!! What about you? @lostaunaum http://radiant-river-9795.herokuapp.com") %>
 
 <div class="loginPage">
 	<div class="loginHeader">
@@ -8,6 +8,6 @@
 		<span class="loginSignature">Thank you for your time! </span>
 	</div>
 	<div class="AlchemyLogo">
-		<blockquote class="twitter-tweet"><p>I am a #{@user[:result]} tweeter according to Marco's twitter sentiment analysis app!! Check what kind of tweeter you are! @lostaunaum http://radiant-river-9795.herokuapp.com</p><a href="https://twitter.com/<%= @user.nickname %>"></a>-<%= @user.name %> (@<%= @user.nickname %>)</blockquote>
+		<blockquote class="twitter-tweet"><p>I am a <%= @user[:result] %> tweeter according to the iTweet-Sense app!! What about you? @lostaunaum http://radiant-river-9795.herokuapp.com</p><a href="https://twitter.com/<%= @user.nickname %>"></a>-<%= @user.name %> (@<%= @user.nickname %>)</blockquote>
 	</div>
 </div>
