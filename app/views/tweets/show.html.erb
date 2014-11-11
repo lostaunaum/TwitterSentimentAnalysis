@@ -45,6 +45,12 @@
 	<% @result = "Neutral" %>
 <% end %>
 
+<% if @positive[:count] == 0%>
+	<% @positive[:count] = 1 %>
+<% elsif @negative[:count] == 0 %>
+	<% @negative[:count] = 1 %>
+<% end %>
+
 <% positiveAverage = number_with_precision((@positive[:score]/@positive[:count])*100, :precision => 2).to_i%>
 <% negativeAverage = -number_with_precision((@negative[:score]/@negative[:count])*100, :precision => 2).to_i%>
 <% testing = @positive[:count] + @negative[:count] + @neutral[:count]%>
@@ -82,7 +88,7 @@
 
 <!-- PIE CHART -->
     <% @graph.title = "Rated Tweets" %>
-    <% @graph.theme = {:colors => %w(black grey), :marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>
+    <% @graph.theme = {:colors => %w(black grey white), :marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>
     <% @graph.data 'Postive Count', @positive[:count] %> 
     <% @graph.data 'Negative Count', @negative[:count] %>
     <% @graph.data 'Neutral Count', @neutral[:count] %>
@@ -91,7 +97,7 @@
 <!-- GRAPHBAR -->
     <% @graphBar.title = "Average Positive Score vs Negative Score" %>
     <% @graphBar.legend_margin = 25 %>
-    <% @graphBar.theme = {:colors => %w(black grey), :marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>
+    <% @graphBar.theme = {:colors => %w(black grey white), :marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>
     <% @graphBar.labels = {0 => 'Positive', 1 => 'Negative'} %>
     <% @graphBar.data "Overall Positive: #{positiveAverage}%", positiveAverage%> 
     <% @graphBar.data "Overall Negative: #{negativeAverage}%", negativeAverage%>
@@ -100,7 +106,7 @@
 <!-- SIDE BAR GRAPH -->
 	<% @graphBarSide.title = "Tweets Overview" %>
     <% @graphBarSide.legend_margin = 25 %>
-    <% @graphBarSide.theme = {:colors => %w(black grey), :marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>	
+    <% @graphBarSide.theme = {:colors => %w(black grey white), :marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>	
     <% @graphBarSide.labels = {0 => 'Positive', 0.1 => 'Negative'} %>
     <% @graphBarSide.data "Total tweet Count #{total_count}", total_count%> 
     <% @graphBarSide.data "Tweets marked as Positive", @positive[:count]%> 
