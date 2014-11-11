@@ -88,7 +88,7 @@
 
 <!-- PIE CHART -->
     <% @graph.title = "Rated Tweets" %>
-    <% @graph.theme = {:colors => %w(black grey white), :marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>
+    <% @graph.theme = {:marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>
     <% @graph.data 'Postive Count', @positive[:count] %> 
     <% @graph.data 'Negative Count', @negative[:count] %>
     <% @graph.data 'Neutral Count', @neutral[:count] %>
@@ -97,7 +97,7 @@
 <!-- GRAPHBAR -->
     <% @graphBar.title = "Average Positive Score vs Negative Score" %>
     <% @graphBar.legend_margin = 25 %>
-    <% @graphBar.theme = {:colors => %w(black grey white), :marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>
+    <% @graphBar.theme = {:marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>
     <% @graphBar.labels = {0 => 'Positive', 1 => 'Negative'} %>
     <% @graphBar.data "Overall Positive: #{positiveAverage}%", positiveAverage%> 
     <% @graphBar.data "Overall Negative: #{negativeAverage}%", negativeAverage%>
@@ -106,7 +106,7 @@
 <!-- SIDE BAR GRAPH -->
 	<% @graphBarSide.title = "Tweets Overview" %>
     <% @graphBarSide.legend_margin = 25 %>
-    <% @graphBarSide.theme = {:colors => %w(black grey white), :marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>	
+    <% @graphBarSide.theme = {:marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>	
     <% @graphBarSide.labels = {0 => 'Positive', 0.1 => 'Negative'} %>
     <% @graphBarSide.data "Total tweet Count #{total_count}", total_count%> 
     <% @graphBarSide.data "Tweets marked as Positive", @positive[:count]%> 
