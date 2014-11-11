@@ -30,19 +30,19 @@ class TweetsController < ApplicationController
         user_timeline(user, options)
       end
     end
-    # num_attempts = 0
-    # begin
-    #   num_attempts += 1
-    #   @tweets = @client.get_all_tweets(@client.user)
-    # rescue 
-    #   @tweets = Twitter::Error::TooManyRequests
-    #   if num_attempts % 3 == 0
-    #     sleep(1.0/24.0) #one 24th of a second
-    #     retry
-    #   else
-    #     retry
-    #   end
-    # end
+    num_attempts = 0
+    begin
+      num_attempts += 1
+      @tweets = @client.get_all_tweets(@client.user)
+    rescue 
+      @tweets = Twitter::Error::TooManyRequests
+      if num_attempts % 3 == 0
+        sleep(1.0/24.0) #one 24th of a second
+        retry
+      else
+        retry
+      end
+    end
 
     @tweets.each do |tweet|
       @newtweet = Tweet.find_by(:twitterId => tweet.id.to_s)
