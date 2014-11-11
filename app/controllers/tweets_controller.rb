@@ -44,7 +44,6 @@ class TweetsController < ApplicationController
       end
     end
 
-    tweet_counter = 0
     @tweets.each do |tweet|
       @newtweet = Tweet.find_by(:twitterId => tweet.id.to_s)
       if @newtweet.nil?
@@ -66,10 +65,6 @@ class TweetsController < ApplicationController
           :twitterId => tweet.id
         )
         @newtweet.save
-        tweet_counter += 1
-        if tweet_counter == 20
-          break
-        end
       end
     end
     redirect_to "/user/#{@user.id}/tweets/#{@user.id}"
