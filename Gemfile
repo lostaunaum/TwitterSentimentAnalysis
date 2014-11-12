@@ -1,13 +1,9 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 
-gem 'paperclip'
-
-gem 'aws-sdk'
-
 gem 'hirb'
 
-gem 'gruff'
+gem 'lazy_high_charts'
 
 gem 'alchemy-api-rb', :require => 'alchemy_api'
 

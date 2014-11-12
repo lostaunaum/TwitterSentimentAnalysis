@@ -1,133 +1,129 @@
 <!-- MATH LOGIC IN ORDER TO GET AVERAGES COUNTS ETC -->
-<% @tweets = Tweet.where(:user_id => params[:id]).all %>
-
-<% @negative = {:score => 0, :count => 0} %>
-<% @neutral = {:score => 0, :count => 0} %>
-<% @positive = {:score => 0, :count => 0} %>
-<% @max_score_positive = {:max => 0, :posTweetText => ""} %>
-<% @max_score_negative = {:max => 0, :negTweetText => ""} %>
-<% scores_array = [] %>
-<% @result = "" %>
-
-<% @tweets.each do |tweet| %>
-<% scores_array << tweet[:score] %>
-	<% if tweet[:sentiment_type] == "positive" %>
-		<% @positive[:score] += tweet[:score] %>
-		<% @positive[:count] += 1 %>
-
-		<% if @max_score_positive[:max] < tweet[:score]%>
-			<% @max_score_positive[:max] = tweet[:score] %>
-			<% @max_score_positive[:posTweetText] = tweet[:tweet]%>
-		<% end %>
-	<% end %>
-
-	<% if tweet[:sentiment_type] == "negative" %>
-		<% @negative[:score] += tweet[:score] %>
-		<% @negative[:count] += 1 %>
-
-		<% if @max_score_negative[:max] > tweet[:score]%>
-			<% @max_score_negative[:max] = tweet[:score] %>
-			<% @max_score_negative[:negTweetText] = tweet[:tweet]%>
-		<% end %>
-	<% end %>
-
-	<% if tweet[:sentiment_type] == "neutral" %>
-		<% @neutral[:score] += tweet[:score] %>
-		<% @neutral[:count] += 1 %>
-	<% end %>
-<% end %>
-
-<% if @positive[:count] > @negative[:count] && @positive[:count] > @neutral[:count] %>
-	<% @result = "Positive" %>
-<% elsif @negative[:count] > @positive[:count] && @negative[:count] > @neutral[:count] %>
-	<% @result = "Negative" %>
-<% else %>
-	<% @result = "Neutral" %>
-<% end %>
-
-<% if @positive[:count] == 0%>
-	<% @positive[:count] = 1 %>
-<% elsif @negative[:count] == 0 %>
-	<% @negative[:count] = 1 %>
-<% end %>
-
-<% positiveAverage = number_with_precision((@positive[:score]/@positive[:count])*100, :precision => 2).to_i%>
-<% negativeAverage = -number_with_precision((@negative[:score]/@negative[:count])*100, :precision => 2).to_i%>
-<% testing = @positive[:count] + @negative[:count] + @neutral[:count]%>
-
-<% total_count = scores_array.size.to_i%>
-
-<!-- MATH LOGIC ENDS HERE -->
-<!-- BUILDING THE GRAPHS DOWN BELOW -->
-
-<!-- PIE CHART -->
-    <% @graph.title = "Rated Tweets" %>
-    <% @graph.theme = {:marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>
-    <% @graph.data 'Postive Count', @positive[:count] %> 
-    <% @graph.data 'Negative Count', @negative[:count] %>
-    <% @graph.data 'Neutral Count', @neutral[:count] %>
-    <% @graph.marker_count = 1 %>
-    <% graphOut = "public/assets/firstChart-" + @user.id.to_s + ".png"%>
-    <% @graph.write(graphOut) %>
-    <% @graphBarSide.write(graphOut) %>
-    <% image_path2 = File.read(graphOut) %>
-    <% key = File.basename(image_path2) %>
-	<% s3.buckets["bucket"].objects[key].write(:file => image_path2) %>
-<!-- GRAPHBAR -->
-    <% @graphBar.title = "Average Positive Score vs Negative Score" %>
-    <% @graphBar.legend_margin = 25 %>
-    <% @graphBar.theme = {:marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>
-    <% @graphBar.labels = {0 => 'Positive', 1 => 'Negative'} %>
-    <% @graphBar.data "Overall Positive: #{positiveAverage}%", positiveAverage%> 
-    <% @graphBar.data "Overall Negative: #{negativeAverage}%", negativeAverage%>
-    <% @graphBar.minimum_value = 0 %>
-	<% graphOut = "public/assets/secondChart" + @user.id.to_s + ".png"%>
-    <% @graphBar.write(graphOut) %>
-    <% @graphBarSide.write(graphOut) %>
-    <% image_path2 = File.read(graphOut) %>
-    <% key = File.basename(image_path2) %>
-	<% s3.buckets["bucket"].objects[key].write(:file => image_path2) %>
-
-<!-- SIDE BAR GRAPH -->
-	<% @graphBarSide.title = "Tweets Overview" %>
-    <% @graphBarSide.legend_margin = 25 %>
-    <% @graphBarSide.theme = {:marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>	
-    <% @graphBarSide.labels = {0 => 'Positive', 0.1 => 'Negative'} %>
-    <% @graphBarSide.data "Total tweet Count #{total_count}", total_count%> 
-    <% @graphBarSide.data "Tweets marked as Positive", @positive[:count]%> 
-    <% @graphBarSide.data "Tweets marked as Negative", @negative[:count]%>
-    <% @graphBarSide.data "Tweets marked as Neutral", @neutral[:count]%>
-    <% @graphBarSide.minimum_value = 0 %>
-    <% graphOut = "public/assets/side_gaph_chart-" + @user.id.to_s + ".png" %>
-    <% @graphBarSide.write(graphOut) %>
-    <% image_path2 = File.read(graphOut) %>
-    <% key = File.basename(image_path2) %>
-	<% s3.buckets["bucket"].objects[key].write(:file => image_path2) %>
-
-
-<!-- LINE GRAPH -->
-	<% @graphLine.title = "History of Tweets" %>
-    <% @graphLine.theme = {:colors => %w(black grey), :marker_color => 'grey', :font_color => 'black', :background_colors => 'transparent'} %>
-    <% @graphLine.labels = {0 => 'First Tweet', 105 => 'Last Tweet'} %>
-    <% @graphLine.data(:scores, scores_array) %>
-    <% @graphLine.write("app/assets/images/line_transparent" + @user.id.to_s + ".png") %>
-    <% image_path3 = File.read("app/assets/images/line_transparent" + @user.id.to_s + ".png") %>
-    <% key = File.basename(image_path3) %>
-	<% s3.buckets["bucket"].objects[key].write(:file => image_path3) %>
-
-<!-- END OF GRAPHS -->
+<% user = User.find(params[:user_id]) %>
 
 <div class="showPage">
 	<h1>You are a <%= @result %> tweeter!!</h1>
 	<% @user[:result] = @result %> 
 	<% @user.save %> 
 
-	<div id="slider">
-		<%= image_tag "firstChart-" + @user.id.to_s + ".png", alt: "alt", title: "Rated Tweets" %>
-		<%= image_tag "secondChart-" + @user.id.to_s + ".png", alt: "alt", title: "Average Scores" %>
-		<%= image_tag "side_gaph_chart-" + @user.id.to_s + ".png", alt: "alt", title: "Tweets Overview" %>
-		<%= image_tag "line_transparent-" + @user.id.to_s + ".png", alt: "alt", title: "History of Tweets" %>
-	</div>   
+<div class="slide-wrap">
+  <div class="slide-mask">
+    <ul class="slide-group">
+      <li class="slide">Rating Graph<canvas id="myChart" width="600" height="400"></canvas></li>
+      <li class="slide">Average Score Comparison<canvas id="myChartBar" width="600" height="400"></canvas></li>      
+      <li class="slide">Tweet Timeline<canvas id="myChartLine" width="600" height="400"></canvas></li>
+    </ul>
+  </div>
+  
+  <div class="slide-nav">
+    <ul>
+      <li class="bullet"></li>
+      <li class="bullet"></li>
+      <li class="bullet"></li>      
+    </ul>
+  </div>
+</div>
+
+<script>
+	var ctx = $("#myChart").get(0).getContext("2d");
+	var data = [
+    {
+        value: <%= @positive[:count] %>,
+        color:"#F7464A",
+        highlight: "#FF5A5E",
+        label: "Positive"
+    },
+    {
+        value: <%= @negative[:count] %>,
+        color: "#46BFBD",
+        highlight: "#5AD3D1",
+        label: "Negative"
+    },
+    {
+        value: <%= @neutral[:count] %>,
+        color: "#FDB45C",
+        highlight: "#FFC870",
+        label: "Neutral"
+    }
+	]
+	var myPieChart = new Chart(ctx).Pie(data, {
+	    animateScale: true
+	});
+</script>
+
+<!-- ################################################ -->
+
+
+
+
+<script>
+	// var Chart = Chart.noConflict();
+	// Get context with jQuery - using jQuery's .get() method.
+	var ctx = $("#myChartBar").get(0).getContext("2d");
+	// This will get the first returned node in the jQuery collection.
+	// var myNewChart = new Chart(ctx);
+		
+	var data = {
+	    labels: ["Overall Positive vs Overall Negative"],
+	    datasets: [
+	        {
+	            label: "Average Positive Score",
+	            fillColor: "rgba(220,220,220,0.5)",
+	            strokeColor: "rgba(220,220,220,0.8)",
+	            highlightFill: "rgba(220,220,220,0.75)",
+	            highlightStroke: "rgba(220,220,220,1)",
+	            data: [Math.floor("<%= @positiveAverage %>")]
+	        },
+	        {
+	            label: "Average Negative Score",
+	            fillColor: "rgba(151,187,205,0.5)",
+	            strokeColor: "rgba(151,187,205,0.8)",
+	            highlightFill: "rgba(151,187,205,0.75)",
+	            highlightStroke: "rgba(151,187,205,1)",
+	            data: [Math.floor("<%= @negativeAverage %>")]
+	        }
+	    ]
+	};
+	var myChartBar = new Chart(ctx).Bar(data, {
+	    animateScale: true
+	});
+</script>
+
+<!-- ################################################ -->
+
+
+<script>
+	var ctx = $("#myChartLine").get(0).getContext("2d");
+	var score_data = <%= raw @scores_array.to_json %>;
+	var score_data_100 = []
+	var tweetTimeLine = []
+	for (var i = 0; i < score_data.length; i++) {
+    	score_data_100.push(Math.floor((score_data[i] * 100)))
+    	tweetTimeLine.push(i + 1)
+	}
+	var data = {
+	    labels: tweetTimeLine,
+	    datasets: [
+	        {
+	            label: "Tweet Timeline",
+	            fillColor: "rgba(220,220,220,0.2)",
+	            strokeColor: "rgba(220,220,220,1)",
+	            pointColor: "rgba(220,220,220,1)",
+	            pointStrokeColor: "#fff",
+	            pointHighlightFill: "#fff",
+	            pointHighlightStroke: "rgba(220,220,220,1)",
+	            data: score_data_100
+	        },
+	    ]
+	};
+	var myChartLine = new Chart(ctx).Line(data, {
+	    animateScale: true,
+	    bezierCurve: false,
+	});
+</script>
+
+<!-- ################################################ -->
+
 
 		<h2>These are the tweets evaluated with the top positive and negative scores</h2>
 	<div class="tweetBlocks">
