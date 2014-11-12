@@ -9,7 +9,7 @@
 <div class="slide-wrap">
   <div class="slide-mask">
     <ul class="slide-group">
-      <li class="slide">Rating Graph<canvas id="myChart" width="600" height="400"></canvas></li>
+      <li class="slide">Ratings Graph<canvas id="myChart" width="600" height="400"></canvas></li>
       <li class="slide">Average Score Comparison<canvas id="myChartBar" width="600" height="400"></canvas></li>      
       <li class="slide">Tweet Timeline<canvas id="myChartLine" width="600" height="400"></canvas></li>
     </ul>
@@ -29,20 +29,20 @@
 	var data = [
     {
         value: <%= @positive[:count] %>,
-        color:"#F7464A",
-        highlight: "#FF5A5E",
+        color: "rgba(180,180,180,0.6)",
+        highlight: "rgba(220,220,220,1)",
         label: "Positive"
     },
     {
         value: <%= @negative[:count] %>,
-        color: "#46BFBD",
-        highlight: "#5AD3D1",
+        color: "rgba(110,110,110,0.6)",
+        highlight: "rgba(220,220,220,1)",
         label: "Negative"
     },
     {
         value: <%= @neutral[:count] %>,
-        color: "#FDB45C",
-        highlight: "#FFC870",
+        color: "rgba(20,20,20,0.6)",
+        highlight: "rgba(220,220,220,1)",
         label: "Neutral"
     }
 	]
@@ -68,17 +68,17 @@
 	    datasets: [
 	        {
 	            label: "Average Positive Score",
-	            fillColor: "rgba(220,220,220,0.5)",
+	            fillColor: "rgba(180,180,180,0.6)",
 	            strokeColor: "rgba(220,220,220,0.8)",
-	            highlightFill: "rgba(220,220,220,0.75)",
+	            highlightFill: "rgba(220,220,220,1)",
 	            highlightStroke: "rgba(220,220,220,1)",
 	            data: [Math.floor("<%= @positiveAverage %>")]
 	        },
 	        {
 	            label: "Average Negative Score",
-	            fillColor: "rgba(151,187,205,0.5)",
+	            fillColor: "rgba(110,110,110,0.6)",
 	            strokeColor: "rgba(151,187,205,0.8)",
-	            highlightFill: "rgba(151,187,205,0.75)",
+	            highlightFill: "rgba(220,220,220,1)",
 	            highlightStroke: "rgba(151,187,205,1)",
 	            data: [Math.floor("<%= @negativeAverage %>")]
 	        }

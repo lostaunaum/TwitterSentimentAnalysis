@@ -3,8 +3,6 @@ ruby '2.0.0'
 
 gem 'hirb'
 
-gem 'lazy_high_charts'
-
 gem 'alchemy-api-rb', :require => 'alchemy_api'
 
 gem 'figaro'

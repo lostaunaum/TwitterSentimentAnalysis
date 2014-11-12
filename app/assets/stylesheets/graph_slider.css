@@ -14,6 +14,7 @@ body {
   height: 470px;
 }
 .slide-group {
+  list-style-type: none; 
   position: absolute; 
   top: 0px; 
   left: 0;
@@ -22,7 +23,7 @@ body {
 .slide {
   height: 470px;
   /*font: 100 90px/135px "lato";*/
-  font-size: 45px;
+  font-size: 48px;
   color: #fff;
   text-align: center;
   text-transform: uppercase;  
