@@ -8,6 +8,6 @@
 		<span class="shareScoreSignature">Thank you for your time! </span>
 	</div>
 	<div class="AlchemyLogo">
-		<span class="tweetBlockSharescore"><blockquote class="twitter-tweet"><p>I am a <%= @user[:result] %> tweeter according to the iTweet-Sense app!! What about you? @lostaunaum http://radiant-river-9795.herokuapp.com</p><a href="https://twitter.com/<%= @user.nickname %>"><%= @user.name %> (@<%= @user.nickname %>)</a></blockquote></span>
+		<span class="tweetBlockSharescore"><blockquote class="twitter-tweet"><p>I am a <%= @user[:result] %> tweeter according to the iTweet-Sense app!! What about you? @lostaunaum http://radiant-river-9795.herokuapp.com</p><%= @user.name %> <a href="https://twitter.com/<%= @user.nickname %>">(@<%= @user.nickname %>)</a></blockquote></span>
 	</div>
 </div>
