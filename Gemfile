@@ -1,13 +1,8 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 
-gem 'hirb'
-
 gem 'alchemy-api-rb', :require => 'alchemy_api'
-
 gem 'figaro'
-
-gem 'rspec-rails'
 #Omniauth for twitter gem
 gem 'omniauth-twitter'
 #twitter GEM
@@ -38,9 +33,11 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 group :development do 
   gem 'spring'
+  gem 'rspec-rails'
   gem "better_errors"
   gem "binding_of_caller"
   gem 'pry-debugger'
+  gem 'hirb'
 end 
 
 # Use ActiveModel has_secure_password
