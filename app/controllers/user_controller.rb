@@ -12,8 +12,8 @@ class UserController < ApplicationController
     @authorization = Authorization.find_by(:user_id => params[:id])
 
     @client = Twitter::REST::Client.new do |config|
-      config.consumer_key        = "kMTcEE1rZrouv1zh6car30nw8"
-      config.consumer_secret     = "zpTobHFDGK97jT9WKH7F4Y4mcj7eN3Vp5GoeTHWo8tnhBI5H1b"
+      config.consumer_key        = ENV["twitter_app_id"] 
+      config.consumer_secret     = ENV["twitter_app_secret"]
       config.access_token        = @authorization[:token]
       config.access_token_secret = @authorization[:secret]
     end

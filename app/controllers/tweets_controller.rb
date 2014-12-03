@@ -145,52 +145,6 @@ class TweetsController < ApplicationController
 
 ###################CHART STUFFFFFF##########################
 
-    # <!-- PIE CHART -->
-    # graph.title = "Rated Tweets" 
-    # graph.theme = {:colors => 'red, black, green', :background_colors => 'transparent'} 
-    # graph.data 'Postive Count', positive[:count]  
-    # graph.data 'Negative Count', negative[:count] 
-    # graph.data 'Neutral Count', neutral[:count] 
-    # graph.marker_count = 1 
-    # graphOut = "app/assets/images/firstChart-" + user.id.to_s + ".png"
-    # graph.write(graphOut) 
-    # graph.write("app/assets/images/firstChart.png")
-
-# <!-- GRAPHBAR -->
-    # graphBar.title = "Average Positive Score vs Negative Score" 
-    # graphBar.legend_margin = 25 
-    # graphBar.theme = {:colors => 'red, black, green', :background_colors => 'transparent'} 
-    # graphBar.labels = {0 => 'Positive', 1 => 'Negative'} 
-    # graphBar.data "Overall Positive: #{positiveAverage}%", positiveAverage 
-    # graphBar.data "Overall Negative: #{negativeAverage}%", negativeAverage
-    # graphBar.minimum_value = 0 
-    # graphOut = "app/assets/images/secondChart" + user.id.to_s + ".png"
-    # graphBar.write(graphOut) 
-    # graphBar.write("app/assets/images/secondChart.png")
-
-# <!-- SIDE BAR GRAPH -->
-  # graphBarSide.title = "Tweets Overview" 
-  #   graphBarSide.legend_margin = 25 
-  #   graphBarSide.theme = {:colors => 'red, black, green', :background_colors => 'transparent'}   
-  #   graphBarSide.labels = {0 => 'Positive', 0.1 => 'Negative'} 
-  #   graphBarSide.data "Total tweet Count #{total_count}", total_count 
-  #   graphBarSide.data "Tweets marked as Positive", positive[:count] 
-  #   graphBarSide.data "Tweets marked as Negative", negative[:count]
-  #   graphBarSide.data "Tweets marked as Neutral", neutral[:count]
-  #   graphBarSide.minimum_value = 0 
-    # graphOut = "app/assets/images/side_gaph_chart-" + user.id.to_s + ".png" 
-    # graphBarSide.write(graphOut) 
-    # graphBarSide.write("app/assets/images/side_gaph_chart.png" ) 
-
-# <!-- LINE GRAPH -->
-    # graphLine.title = "History of Tweets" 
-    # graphLine.theme = {:colors => 'red, black, green', :background_colors => 'transparent'} 
-    # graphLine.labels = {0 => 'First Tweet', 105 => 'Last Tweet'} 
-    # graphLine.data(:scores, @scores_array) 
-    # graphLine.write("app/assets/images/line_transparent.png")
-
-# <!-- END OF GRAPHS -->
-
   end
 
 
