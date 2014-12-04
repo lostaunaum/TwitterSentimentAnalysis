@@ -1,16 +1,16 @@
 class TweetsController < ApplicationController
 
-  # def index
-  #   @user = User.find(params[:user_id])
-  #   @authorization = Authorization.find_by(:user_id => params[:user_id])
+  def index
+    @user = User.find(params[:user_id])
+    @authorization = Authorization.find_by(:user_id => params[:user_id])
     
-  #   @client = Twitter::REST::Client.new do |config|
-  #     config.consumer_key        = ENV["twitter_app_id"] 
-  #     config.consumer_secret     = ENV["twitter_app_secret"]
-  #     config.access_token        = @authorization[:token]
-  #     config.access_token_secret = @authorization[:secret]
-  #   end
-  # end
+    @client = Twitter::REST::Client.new do |config|
+      config.consumer_key        = ENV["twitter_app_id"] 
+      config.consumer_secret     = ENV["twitter_app_secret"]
+      config.access_token        = @authorization[:token]
+      config.access_token_secret = @authorization[:secret]
+    end
+  end
 
   def create
     @user = User.find(params[:user_id])
