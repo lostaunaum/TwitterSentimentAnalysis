@@ -31,4 +31,4 @@ Please email me at lostaunaum@gmail.com
 
 == Copyright 
 
-Copyright (c) 2014 Marco Andre Lostaunau. If you would like to try the Alchemy API yourself please visit http://www.alchemyapi.com/
+Copyright (c) 2014 Marco Andre Lostaunau. If you would like to try the Alchemy API yourself please visit http://www.alchemyapi.com
