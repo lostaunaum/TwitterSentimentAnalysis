@@ -1,16 +1,16 @@
 class TweetsController < ApplicationController
 
-  def index
-    @user = User.find(params[:user_id])
-    @authorization = Authorization.find_by(:user_id => params[:user_id])
+  # def index
+  #   @user = User.find(params[:user_id])
+  #   @authorization = Authorization.find_by(:user_id => params[:user_id])
     
-    @client = Twitter::REST::Client.new do |config|
-      config.consumer_key        = ENV["twitter_app_id"] 
-      config.consumer_secret     = ENV["twitter_app_secret"]
-      config.access_token        = @authorization[:token]
-      config.access_token_secret = @authorization[:secret]
-    end
-  end
+  #   @client = Twitter::REST::Client.new do |config|
+  #     config.consumer_key        = ENV["twitter_app_id"] 
+  #     config.consumer_secret     = ENV["twitter_app_secret"]
+  #     config.access_token        = @authorization[:token]
+  #     config.access_token_secret = @authorization[:secret]
+  #   end
+  # end
 
   def create
     @user = User.find(params[:user_id])
@@ -83,11 +83,9 @@ class TweetsController < ApplicationController
     end
 
     user = User.find(params[:user_id])
-    # graph = Gruff::Pie.new
-    # graphBar = Gruff::Bar.new(850)
-    # graphLine = Gruff::Line.new(850)
-    # graphBarSide = Gruff::SideBar.new(850)
     tweets = Tweet.where(:user_id => params[:id]).all 
+
+###################CHART STUFFFFFF##########################
 
     @negative = {:score => 0, :count => 0} 
     @neutral = {:score => 0, :count => 0} 
@@ -143,15 +141,11 @@ class TweetsController < ApplicationController
     @negativeAverage = -view_context.number_with_precision((@negative[:score]/@negative[:count])*100, :precision => 2).to_i
     total_count = @positive[:count] + @negative[:count] + @neutral[:count]
 
-###################CHART STUFFFFFF##########################
-
   end
-
-
+  
   private
 
   def user_params
     params.require(:user).permit(:name)
   end
-
 end

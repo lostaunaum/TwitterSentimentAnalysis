@@ -15,6 +15,26 @@
  */
 
 /*PLAYING WITH THE BOOTSTRAP CSS*/
+
+.signIn {
+    position: relative;
+    float: left;
+    margin-left: 4%;
+    border: none;
+    font-size: 30px;
+    padding: 10px 20px;
+    cursor: pointer;
+    background: lighten(#ff88cc, 5%);
+    color: #333;
+    transition: .3s;
+    text-shadow: 1px 2px 0 #ff88cc;
+    font-family: "Londrina Solid", cursive;
+    border-radius: 20px;
+    &:hover {
+      background: lighten(#ff88cc, 20%);
+    }
+}
+
 .shareScorePage {
 	position: absolute;
 	font-family: "Londrina Solid", cursive;
