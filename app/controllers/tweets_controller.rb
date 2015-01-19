@@ -37,6 +37,7 @@ class TweetsController < ApplicationController
       @tweets = @client.get_all_tweets(@client.user)
     rescue 
       @tweets = Twitter::Error::TooManyRequests
+      # sidekick and delay-job could be a resource to imrpove user experience in this section of the code
       if num_attempts % 3 == 0
         sleep(1.0/24.0) #one 24th of a second
         retry
