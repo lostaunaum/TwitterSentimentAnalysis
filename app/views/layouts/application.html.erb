@@ -50,6 +50,9 @@
 	</nav>
 
 	<%= yield %>
+
+<!-- Managed to make the random loading bar work, now the user gets to see all these cool loading bars!  -->
+
 	<% loading_gifs = ['jar_loading.gif', 'coffee_mug_loading.gif', 'car_loading.gif', 'cat_spinner.gif', 'gangnam_loading.gif', 'jumping_loading.gif', 'spinner.gif']%>
 	<% r = Random.new %>
 	<% @random_gif = loading_gifs[r.rand(0...6) ] %>
