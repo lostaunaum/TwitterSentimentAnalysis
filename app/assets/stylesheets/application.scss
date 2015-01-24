@@ -200,21 +200,12 @@ body {
 	padding: 15px;
 }
 
-.col-xs-12 {
-	margin-left: auto;
-	margin-right: auto;
+.row {
+	display: block;
+  	margin-left: auto;
+  	margin-right: auto;	
 }
-
-.col-sm-6 {
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.col-md-8 {
-	margin-left: auto;
-	margin-right: auto;
-}
-
+  
 
 
 .loginHeader .loginTitle {

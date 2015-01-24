@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-xs-12 col-sm-6 col-md-8">
+	<div class="center-block col-xs-12 col-sm-6 col-md-8">
 		<div class="userInfo">
 			<h1>Hello! <%= @user.name %></h1>
 			<h2><%= link_to "Click here for the personality test!", "/user/#{@user.id}/tweets", :method => :create, class: 'personality-test' %></h2>
