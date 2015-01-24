@@ -49,12 +49,6 @@
 	  </div><!-- /.container-fluid -->
 	</nav>
 
-<!-- 	<div class"dfooter">
-		<div class="dfooter1">
-		</div>
-		<div class="dfooter2">
-		</div>
-	</div> -->
 	<%= yield %>
 	<% loading_gifs = ['jar_loading.gif', 'coffee_mug_loading.gif', 'car_loading.gif', 'cat_spinner.gif', 'gangnam_loading.gif', 'jumping_loading.gif', 'spinner.gif']%>
 	<% r = Random.new %>
@@ -62,7 +56,7 @@
 	<div class="loading-overlay">
 		<div class="loading-image-wrap">
 			<div class="loading-image-wrap-inner">
-				<img src="<%= asset_path('gangnam_loading.gif') %>">
+				<img src="<%= asset_path('#{@random_gif}') %>">
 			</div>
 		</div>
 	</div>
