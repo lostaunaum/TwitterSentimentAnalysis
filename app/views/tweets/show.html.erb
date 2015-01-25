@@ -8,39 +8,40 @@
 
 	<div class="clearfix visible-xs-block"></div>
 	<div class="col-xs-12 col-sm-4">
-	<div class="showPage">
-		<h1>You are a <%= @result %> tweeter!!</h1>
-		<% @user[:result] = @result %> 
-		<% @user.save %> 
+		<div class="showPage">
+			<h1>You are a <%= @result %> tweeter!!</h1>
+			<% @user[:result] = @result %> 
+			<% @user.save %> 
 
-		<div class="slide-wrap">
-		  <div class="slide-mask">
-		    <ul class="slide-group">
-		      <li class="slide">Ratings Graph<canvas id="myChart" width="600" height="400"></canvas></li>
-		      <li class="slide">Average Score Comparison<canvas id="myChartBar" width="600" height="400"></canvas></li>      
-		      <li class="slide">Tweet Timeline<canvas id="myChartLine" width="600" height="400"></canvas></li>
-		    </ul>
-		  </div>
-		  
-		  <div class="slide-nav">
-		    <ul>
-		      <li class="bullet"></li>
-		      <li class="bullet"></li>
-		      <li class="bullet"></li>      
-		    </ul>
-		  </div>
-		</div>
+			<div class="slide-wrap">
+			  <div class="slide-mask">
+			    <ul class="slide-group">
+			      <li class="slide">Ratings Graph<canvas id="myChart" width="600" height="400"></canvas></li>
+			      <li class="slide">Average Score Comparison<canvas id="myChartBar" width="600" height="400"></canvas></li>      
+			      <li class="slide">Tweet Timeline<canvas id="myChartLine" width="600" height="400"></canvas></li>
+			    </ul>
+			  </div>
+			  
+			  <div class="slide-nav">
+			    <ul>
+			      <li class="bullet"></li>
+			      <li class="bullet"></li>
+			      <li class="bullet"></li>      
+			    </ul>
+			  </div>
+			</div>
 
-		<h2>These are the tweets evaluated with the top positive and negative scores</h2>
-		<div class="tweetBlocks">
-			<h2>Highest Positve Score: <%= number_with_precision(@max_score_positive[:max]*100, :precision => 2) + "%" %></h2>
-			<blockquote class="twitter-tweet"><p><%= @max_score_positive[:posTweetText]%></p><a href="https://twitter.com/<%= @user.nickname %>"></a>-<%= @user.name %> (@<%= @user.nickname %>)</blockquote>
-			<h2>Lowest Negative Score: <%= number_with_precision(@max_score_negative[:max]*100, :precision => 2) + "%" %> </h2>
-			<blockquote class="twitter-tweet"><p><%= @max_score_negative[:negTweetText]%></p><a href="https://twitter.com/<%= @user.nickname %>"></a>-<%= @user.name %> (@<%= @user.nickname %>)</blockquote>	
-		</div>
-		
-		<div class="scoreShare">
-			<h2><%= link_to 'Share your score on Twitter!', user_tweets_path, :method => :get %></h2>
+			<h2>These are the tweets evaluated with the top positive and negative scores</h2>
+			<div class="tweetBlocks">
+				<h2>Highest Positve Score: <%= number_with_precision(@max_score_positive[:max]*100, :precision => 2) + "%" %></h2>
+				<blockquote class="twitter-tweet"><p><%= @max_score_positive[:posTweetText]%></p><a href="https://twitter.com/<%= @user.nickname %>"></a>-<%= @user.name %> (@<%= @user.nickname %>)</blockquote>
+				<h2>Lowest Negative Score: <%= number_with_precision(@max_score_negative[:max]*100, :precision => 2) + "%" %> </h2>
+				<blockquote class="twitter-tweet"><p><%= @max_score_negative[:negTweetText]%></p><a href="https://twitter.com/<%= @user.nickname %>"></a>-<%= @user.name %> (@<%= @user.nickname %>)</blockquote>	
+			</div>
+
+			<div class="scoreShare">
+				<h2><%= link_to 'Share your score on Twitter!', user_tweets_path, :method => :get %></h2>
+			</div>
 		</div>
 	</div>
 <!-- 
