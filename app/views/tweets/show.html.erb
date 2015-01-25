@@ -37,16 +37,14 @@
 			<h2>Lowest Negative Score: <%= number_with_precision(@max_score_negative[:max]*100, :precision => 2) + "%" %> </h2>
 			<blockquote class="twitter-tweet"><p><%= @max_score_negative[:negTweetText]%></p><a href="https://twitter.com/<%= @user.nickname %>"></a>-<%= @user.name %> (@<%= @user.nickname %>)</blockquote>	
 		</div>
+		<div class="scoreShare">
+			<h2><%= link_to 'Share your score on Twitter!', user_tweets_path, :method => :get %></h2>
+		</div>
 	</div>
-
-	<div class="scoreShare">
-		<h2><%= link_to 'Share your score on Twitter!', user_tweets_path, :method => :get %></h2>
-	</div>
-
 
 	<div class="clearfix visible-xs-block"></div>
 	<div class="col-xs-12 col-sm-4"></div>
-	
+
 </div>
 
 	<script>
