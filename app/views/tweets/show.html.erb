@@ -2,12 +2,8 @@
 <% user = User.find(params[:user_id]) %>
 
 <div class="row">
-
-<!-- 	<div class="clearfix visible-xs-block"></div>
-	<div class="col-xs-12 col-sm-4"></div> -->
-
-	<div class="clearfix visible-xs-block"></div>
-	<div class="col-xs-12 col-sm-4">
+<div class="col-sm-2"></div>
+	<div class="col-xs-12 col-sm-6 col-md-8">
 		<div class="showPage">
 			<h1>You are a <%= @result %> tweeter!!</h1>
 			<% @user[:result] = @result %> 
@@ -32,6 +28,7 @@
 			</div>
 
 			<h2>These are the tweets evaluated with the top positive and negative scores</h2>
+			
 			<div class="tweetBlocks">
 				<h2>Highest Positve Score: <%= number_with_precision(@max_score_positive[:max]*100, :precision => 2) + "%" %></h2>
 				<blockquote class="twitter-tweet"><p><%= @max_score_positive[:posTweetText]%></p><a href="https://twitter.com/<%= @user.nickname %>"></a>-<%= @user.name %> (@<%= @user.nickname %>)</blockquote>
@@ -40,16 +37,11 @@
 			</div>
 
 			<div class="scoreShare">
-				<h2><%= link_to 'Share your score on Twitter!', user_tweets_path, :method => :get %></h2>
+				<%= link_to 'Share your score on Twitter!', user_tweets_path, :method => :get %>
 			</div>
 		</div>
 	</div>
-<!-- 
-	<div class="clearfix visible-xs-block"></div>
-	<div class="col-xs-12 col-sm-4"></div> -->
-
 </div>
-
 
 	<!-- ################################################ -->
 
