@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root to: "user#loginPage"
+  root to: "user#home"
   
   resources :user do 
     resources :tweets
