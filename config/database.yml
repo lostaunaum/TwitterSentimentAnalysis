@@ -8,10 +8,12 @@ default: &default
   adapter: postgresql
   pool: 5
   timeout: 5000
+  username: test_admin
+  password: Test-123
 
 development:
   <<: *default
-  database: itweetsense_development
+  database: itweetsense_test
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
