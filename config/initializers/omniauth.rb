@@ -1,6 +1,11 @@
+# Rails.application.config.middleware.use OmniAuth::Builder do
+#   provider :twitter, ENV["twitter_app_id"], ENV["twitter_app_secret"]
+# end
+
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :twitter, ENV["twitter_app_id"], ENV["twitter_app_secret"]
+  provider :twitter, Rails.application.secrets.twitter_api_key, Rails.application.secrets.twitter_api_secret
 end
+
 
 # CarrierWave.configure do |config|
 #   config.fog_credentials = {

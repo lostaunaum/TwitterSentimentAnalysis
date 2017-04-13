@@ -1,53 +1,83 @@
 <!DOCTYPE html>
 <html>
-	<body id="page-top" class="index">
-		<head>
-			<title>TwitterSentimentAnalysis</title>
-			<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-			<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-			<%= csrf_meta_tags %>
+<head>
+	<title>TwitterSentimentAnalysis</title>
+	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	<%= csrf_meta_tags %>
 
-			<meta charset="utf-8">
-		    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-		    <meta name="viewport" content="width=device-width, initial-scale=1">
-		    <meta name="description" content="">
-		    <meta name="author" content="">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
 
-		    <title>iTweetSense</title>
+	<title>iTweetSense</title>
 
-		    <!-- Bootstrap Core CSS -->
-		    <link href="assets/bootstrap.min.css" rel="stylesheet">
+	<!-- Bootstrap Core CSS -->
+	<link href="/assets/bootstrap.min.css" rel="stylesheet">
 
-		    <!-- Theme CSS -->
-		    <link href="assets/freelancer.min.css" rel="stylesheet">
+	<!-- Theme CSS -->
+	<link href="/assets/freelancer.min.css" rel="stylesheet">
 
-		    <!-- Custom Fonts -->
-		    <link href="assets/font-awesome.min.css" rel="stylesheet" type="text/css">
-		    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-		    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-		</head>
+	<!-- Custom Fonts -->
+	<link href="/assets/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 	<link href='https://fonts.googleapis.com/css?family=Londrina+Solid' rel='stylesheet' type='text/css'>
+</head>
+
+<body id="page-top" class="index">
 	<h2> <%= flash[:message] %></h2>
-	<nav class="navbar navbar-inverse" role="navigation">
-		 <div class="container-fluid">
-	    <!-- Brand and toggle get grouped for better mobile display -->
-	    <div class="navbar-header">
-	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-	        <span class="sr-only">Toggle navigation</span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	      </button>
-	      <a class="navbar-brand" href="http://lostaunaum.github.io/PortfolioPage">Portfolio</a>
+	<!-- Navigation -->
+	<nav id="my-nav-bar" class="navbar navbar-default navbar-fixed-top navbar-custom">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header page-scroll">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+				</button>
+				<a class="navbar-brand" href="#page-top">iTweetSense</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<% if @current_user %>
+					<li class="page-scroll"><%= link_to 'Home', root_path, :method => :get %></li>
+					<li class="page-scroll"><%= link_to 'Sign Out', signout_path, :method => :post %></li>
+					<li class="page-scroll"><%= link_to 'Profile', user_path(@current_user.id), :method => :get %></li>
+					<li class="page-scroll"><%= link_to 'Statistics', "/user/#{@current_user.id}/tweets/#{@current_user.id}", :method => :get %></li>
+					<% else %>
+					<li class="page-scroll">
+						<a href="#page-top">Home</a>
+					</li>	
+					<li class="page-scroll">
+						<a href="#app-info">AppInfo</a>
+					</li>
+					<li class="page-scroll">
+						<a href="#contact">Contact</a>
+					</li>				
+					<li class="page-scroll"><%= link_to 'Sign in', "/auth/twitter", :method => :get %></li>
+					<% end %>
+
+
+				</ul>
+			</div><!-- /.navbar-collapse -->
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+
+
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
 		</div>
-
-
-	  </div><!-- /.container-fluid -->
+		<!-- /.container-fluid -->
 	</nav>
-
 	<%= yield %>
-
-<!-- Managed to make the random loading bar work, now the user gets to see all these cool loading bars!  -->
+	<!-- Managed to make the random loading bar work, now the user gets to see all these cool loading bars!  -->
 
 	<% loading_gifs = ['jar_loading.gif', 'coffee_mug_loading.gif', 'car_loading.gif', 'cat_spinner.gif', 'gangnam_loading.gif', 'jumping_loading.gif', 'spinner.gif']%>
 	<% r = Random.new %>
@@ -60,11 +90,51 @@
 		</div>
 	</div>
 
-		<script type="text/javascript">
-			$('.signIn').on('click', function() {
-				location.replace("/auth/twitter");
-		  	});
-		</script>
-	</body>
+	<script type="text/javascript">
+		$('.signIn').on('click', function() {
+			location.replace("/auth/twitter");
+		});
+	</script>
+	<!-- jQuery -->
+	<script src="/assets/jquery.min.js"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="/assets/bootstrap.min.js"></script>
+
+	<!-- Plugin JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+	<!-- Contact Form JavaScript -->
+	<script src="/assets/jqBootstrapValidation.js"></script>
+	<script src="/assets/contact_me.js"></script>
+
+	<!-- Theme JavaScript -->
+	<script src="/assets/freelancer.min.js"></script>
+
+
+	<!-- js placed at the end of the document so the pages load faster -->
+	<script src="/assets/jquery.js"></script>
+	<script src="/assets/jquery-1.8.3.min.js"></script>
+	<script src="/assets/bootstrap.min.js"></script>
+	<script class="include" type="text/javascript" src="/assets/jquery.dcjqaccordion.2.7.js"></script>
+	<script src="/assets/jquery.scrollTo.min.js"></script>
+	<script src="/assets/jquery.nicescroll.js" type="text/javascript"></script>
+	<script src="/assets/jquery.sparkline.js"></script>
+
+	<script class="include" type="text/javascript" src="/assets/jquery.dcjqaccordion.2.7.js"></script>
+	<script src="/assets/jquery.scrollTo.min.js"></script>
+	<script src="/assets/jquery.nicescroll.js" type="text/javascript"></script>
+
+
+	<!--common script for all pages-->
+	<script src="/assets/common-scripts.js"></script>
+
+	<!--script for this page-->
+	<script src="/assets/chart-master/Chart.js"></script>
+	<script src="/assets/chartjs-conf.js"></script>
+
+
+
+</body>
 </html>
 
