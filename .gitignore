@@ -204,10 +204,6 @@ project.lock.json
 # Visual Studio Code
 .vscode/
 
-# Output folder used by Webpack or other FE stuff
-**/node_modules/*
-**/wwwroot/*
-
 # SpecFlow specific
 *.feature.cs
 *.feature.xlsx.*
