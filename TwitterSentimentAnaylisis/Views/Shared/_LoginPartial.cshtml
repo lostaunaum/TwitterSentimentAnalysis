@@ -12,6 +12,7 @@
                     <i class="fas fa-user-circle fa-fw"></i>
                     Hello @UserManager.GetUserName(User)!
                 </a>
+
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="About">About</a>
@@ -26,6 +27,5 @@
 }
 else
 {
-    <a class="navbar-brand mr-1" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    <a class="navbar-brand mr-1" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    <a class="navbar-brand mr-1" asp-area="Identity" asp-page="/Account/Login">Login / Register</a>
 }

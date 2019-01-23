@@ -341,27 +341,14 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
   color: #777;
 }
 
-footer.sticky-footer {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: calc(100% - 90px);
-  height: 80px;
-  background-color: #e9ecef;
-}
-
-footer.sticky-footer .copyright {
-  line-height: 1;
-  font-size: 0.8rem;
-}
-
-@media (min-width: 768px) {
-  footer.sticky-footer {
-    width: calc(100% - 225px);
-  }
+.myFooterClass {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #efefef;
+    text-align: center;
 }
 
 body.sidebar-toggled footer.sticky-footer {

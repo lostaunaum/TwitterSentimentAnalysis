@@ -31,72 +31,68 @@
 </head>
 <body id="page-top">
 
+    @{ 
+        var pageName = ViewContext.RouteData.Values["controller"];
+    }
+
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-        <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand mr-1">TwitterSentimentAnaylisis</a>
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand mr-1">TSA V2.0</a>
 
-        <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-            <i class="fas fa-bars"></i>
-        </button>
+        @if (pageName != null && pageName.ToString() == "Dashboard")
+        {
+            <script src="~/lib/chart.js/Chart.js"></script>
+            <script src="~/lib/datatables/jquery.dataTables.js"></script>
+            <script src="~/lib/datatables/dataTables.bootstrap4.js"></script>
+            <script src="~/js/sb-admin.js"></script>
+            <script src="~/js/demo/datatables-demo.js"></script>
+            <script src="~/js/demo/chart-area-demo.js"></script>
 
-        <!-- Navbar -->
-        <ul class="navbar-nav ml-auto mr-0 mr-md-3 my-2 my-md-0">
-            <li class="nav-item dropdown no-arrow mx-1">
-                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-bell fa-fw"></i>
-                    <span class="badge badge-danger">9+</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown no-arrow mx-1">
-                <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-envelope fa-fw"></i>
-                    <span class="badge badge-danger">7</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
-        </ul>
-        <partial name="_LoginPartial" />
+            <!-- Navbar -->
+            <ul class="navbar-nav ml-auto mr-0 mr-md-3 my-2 my-md-0">
+                <li class="nav-item dropdown no-arrow mx-1">
+                    <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-bell fa-fw"></i>
+                        <span class="badge badge-danger">9+</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown no-arrow mx-1">
+                    <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-envelope fa-fw"></i>
+                        <span class="badge badge-danger">7</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+            </ul>
+
+            <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+                <i class="fas fa-bars"></i>
+            </button>
+        }
+        else if (pageName != null && pageName.ToString() == "Home")
+        {
+            <ul class="navbar-nav ml-auto mr-0 mr-md-3 my-2 my-md-0"></ul>
+            <partial name="_LoginPartial" />
+        }
     </nav>
-
-    @*<nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">TwitterSentimentAnaylisis</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    </ul>
-
-                </div>
-            </div>
-        </nav>*@
 
     <partial name="_CookieConsentPartial" />
 
     @RenderBody()
     <hr />
-    <footer>
+    <footer class="myFooterClass">
         <p>&copy; 2019 - TwitterSentimentAnaylisis</p>
     </footer>
 
@@ -106,12 +102,6 @@
 
         <script src="~/lib/bootstrap/js/bootstrap.bundle.js"></script>
         <script src="~/lib/jquery-easing/jquery.easing.js"></script>
-        <script src="~/lib/chart.js/Chart.js"></script>
-        <script src="~/lib/datatables/jquery.dataTables.js"></script>
-        <script src="~/lib/datatables/dataTables.bootstrap4.js"></script>
-        <script src="~/js/sb-admin.js"></script>
-        <script src="~/js/demo/datatables-demo.js"></script>
-        <script src="~/js/demo/chart-area-demo.js"></script>
 
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
